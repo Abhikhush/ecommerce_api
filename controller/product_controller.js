@@ -51,25 +51,29 @@ module.exports.delete = function (req, res) {
     });
 };
 
-module.exports.updateQunatity = async function (req, res) {
+// FUnction TO update a product's QUantity
+
+exports.updateQunatity = function (req, res) {
   const ID = req.params.productID;
-  try {
-    // find the product using id
-    const found = await Product.findById(ID);
-    // Note - To increment the quantity of the product put number as a positive value in the query
-    //        and to decrement the quantity put the number as negative value in the query
-    const newQty = parseInt(found.quantity) + parseInt(req.query.number);
-    // update the product's quantity
-    const updatedProduct = await Product.findByIdAndUpdate(
-      ID,
-      { quantity: newQty },
-      { new: true }
-    );
-    res.send({
-      product: updatedProduct,
-      message: "updated successfully",
-    });
-  } catch (err) {
-    res.send(err);
-  }
+  Product.findById(ID, function(err, found) {
+    if (err) {
+        res.send(err);
+    } else {
+        // Note - To increment the quantity of the product, put a positive number in the query,
+        //        and to decrement the quantity, put a negative number in the query.
+        const newQty = parseInt(found.quantity) + parseInt(req.query.number);
+        // Update the product's quantity
+        Product.findByIdAndUpdate(ID, { quantity: newQty }, function(err, updatedProduct) {
+            if (err) {
+                res.send(err);
+            } else {
+                updatedProduct.quantity = newQty;
+                res.send({
+                    product: updatedProduct,
+                    message: 'Updated successfully'
+                });
+            }
+        });
+    }
+});
 };

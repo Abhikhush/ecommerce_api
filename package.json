@@ -1,0 +1,32 @@
+{
+  "name": "ecom_api",
+  "version": "1.0.0",
+  "description": "Step 1: Connecting to MongoDB Atlas. Step 2: Adding REST API CRUD Routes. Step 3: Setting Up the Front-End. Step 4: Testing the Application.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Abhishek kumar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.0",
+    "nodemon": "^2.0.22"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abhikhush/ecommerce_api.git"
+  },
+  "keywords": [
+    "Ecommerce",
+    "API",
+    "NodeJS",
+    "MongoDB",
+    "Postman"
+  ],
+  "bugs": {
+    "url": "https://github.com/Abhikhush/ecommerce_api/issues"
+  },
+  "homepage": "https://github.com/Abhikhush/ecommerce_api#readme"
+}

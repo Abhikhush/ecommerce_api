@@ -15,6 +15,28 @@ router.post("/create", productsController.create);
 router.delete("/:productID", productsController.delete);
 
 // to update the quantity of a product
-router.post("/:productID/update_quantity/", productsController.updateQunatity);
+// router.post("/:productID/update_quantity/", productsController.updateQunatity);
 
+
+router.post('/:productID/update_quantity', async function(req, res) {
+    try {
+        const ID = req.params.productID;
+        const foundProduct = await Product.findById(ID);
+        if (!foundProduct) {
+            res.status(404).json({ error: 'Product not found' });
+            return;
+        }
+
+        const newQty = parseInt(foundProduct.quantity) + parseInt(req.query.number);
+        foundProduct.quantity = newQty;
+        await foundProduct.save();
+
+        res.send({
+            product: foundProduct,
+            message: 'Updated successfully'
+        });
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
 module.exports = router;
